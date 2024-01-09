@@ -52,6 +52,7 @@ pipeline {
         
         stage('image push') {
             steps {
+                docker.withRegistry('https://registry.hub.docker.com', 'docker_cre')
                 sh "docker push ${DOCKERHUB}:${currentBuild.number}"
                 sh "docker push ${DOCKERHUB}:latest"
             }
