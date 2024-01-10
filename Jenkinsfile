@@ -80,6 +80,8 @@ pipeline {
         }
         stage('k8s manifest file update') {
             steps {
+                
+                
                 git credentialsId: GITCREDENTIAL,
                 url: GITSSHADD,
                 branch: 'main'
@@ -102,6 +104,9 @@ pipeline {
                 echo 'k8s manifest file update failure'
                 }
                 success {
+                slackSend (channel: '#dep02', color: '#FFFF00', message:
+                "MANIFEST UPDATE SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                
                 echo 'k8s manifest file update success'  
                 }
             }
